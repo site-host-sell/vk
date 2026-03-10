@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist",
+    "backend:dev": "npm run dev --prefix server",
+    "backend:migrate": "npm run migrate --prefix server"
   },
   "devDependencies": {
     "@types/react": "^19.2.14",
