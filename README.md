@@ -1,61 +1,45 @@
-# VK Mini App + Backend (без n8n)
+# VK Mini App (Supabase only)
 
-## Что внутри
-- `src/` — мини-приложение (VKUI + Vite), работает через backend API.
-- `server/` — backend API (`Express + Postgres`) с бизнес-логикой:
-  - пользователь/кабинет,
-  - привязка сообщества,
-  - контент-план и темы,
-  - покупка тарифов,
-  - support-запросы.
+## Architecture
+- `src/` - VK Mini App frontend (Vite + VKUI).
+- `server/` - optional old backend scaffold. Current app can work without it.
+- Data path in current setup:
+  - Mini App -> Supabase Data API -> Postgres tables.
 
-## 1) Локальный запуск
+## Required env for frontend build
+Create `.env` in repo root:
 
-### Frontend
-```bash
-npm install
-npm run dev
-```
-
-### Backend
-```bash
-cd server
-npm install
-cp .env.example .env
-# заполните DATABASE_URL
-npm run migrate
-npm run dev
-```
-
-Frontend ожидает backend по `VITE_API_BASE_URL`.
-Создайте `.env` в корне проекта:
 ```env
-VITE_API_BASE_URL=http://127.0.0.1:8787
+VITE_SUPABASE_URL=https://your-project-ref.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_xxxxxxxxx
 ```
 
-## 2) Прод-развертывание
+You can also use:
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY`
 
-### Frontend (GitHub Pages)
+## Run locally
+```bash
+npm install
+npm run dev
+```
+
+## Deploy frontend to GitHub Pages
 ```bash
 npm run deploy
 ```
 
-### Backend (Railway/Render)
-Запустите `server/` как отдельный сервис:
-- стартовая команда: `npm run start`
-- рабочая папка: `server`
-- переменные окружения:
-  - `DATABASE_URL=...`
-  - `CORS_ORIGINS=https://site-host-sell.github.io`
-  - `PORT` (опционально)
+## DB schema
+Core tables used by the mini app:
+- `app_users`
+- `communities`
+- `topics`
+- `purchases`
+- `support_requests`
 
-После деплоя backend укажите его URL в переменной `VITE_API_BASE_URL` и перезадеплойте frontend.
-
-## 3) SQL миграция
-Файл схемы:
+Schema migration file:
 - `server/migrations/001_init.sql`
 
-Применение:
-```bash
-npm run backend:migrate
-```
+## Important security note
+Current "Supabase only" mode uses `publishable key` from the client and broad table access.
+For strict production security, move write operations to Supabase Edge Functions and verify user identity server-side.
