@@ -1,0 +1,26 @@
+{
+  "name": "vk-miniapp-local",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.4",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.1"
+  },
+  "dependencies": {
+    "@vkontakte/icons": "^3.43.0",
+    "@vkontakte/vk-bridge": "^2.15.11",
+    "@vkontakte/vk-mini-apps-router": "^1.8.4",
+    "@vkontakte/vkui": "^7.11.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  }
+}
