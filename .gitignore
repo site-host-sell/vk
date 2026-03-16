@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.env
+.env.*
+
+# Local n8n export/debug artifacts (can contain secrets/tokens)
+workflow_*.json
+execution_*.json
+exec_*.json
+*.live.patched.json

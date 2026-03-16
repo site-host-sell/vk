@@ -7,7 +7,7 @@ const { Pool } = pg;
 
 const connectionString = String(process.env.DATABASE_URL || '').trim();
 if (!connectionString) {
-  throw new Error('DATABASE_URL не задан. Добавьте переменную окружения для backend.');
+  throw new Error('DATABASE_URL is missing. Configure backend environment variables.');
 }
 
 export const pool = new Pool({
